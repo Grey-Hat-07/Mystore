@@ -34,8 +34,8 @@ export default function Navbar() {
                                 <a className="nav-link" href="#">Link</a>
                             </li>
                         </ul>
-                        <Link href='/Login' className='active'><button className=" btn btn-success nav-link">Login</button></Link>
-                        <Link href='/Logout' className='active'><button className=" btn btn-danger nav-link">Logout</button></Link>
+                        <Link href='/Login' className='active'><button className=" btn btn-success ">Login</button></Link>
+                        <Link href='/Logout' className='active'><button className=" btn btn-danger ">Logout</button></Link>
                     </div>
                 </div>
             </nav>
