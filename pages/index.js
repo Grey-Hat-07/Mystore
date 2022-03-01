@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 export default function Home(props) {
-  
+ console.log('hello');
 
   return (
     <div className={styles.container}>
@@ -12,7 +12,7 @@ export default function Home(props) {
   )
 }
 export async function getStaticProps(context) {
-  const res=await fetch('http://localhost:3000/api/hello')
+  const res=await fetch('http://localhost:3000/api/products')
   const data= await res.json()
   console.log(data)
   return {
