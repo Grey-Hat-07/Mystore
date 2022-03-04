@@ -1,7 +1,14 @@
-.cardwidth{
-    width: 18rem;
-    display: flex;
-}
+
 .imgover{
     overflow: hidden;
 }
+.cardhover:hover, .cardhover:focus{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transform: translateY(-5px);
+}
+
+.cardstyle{
+    width: 16rem;
+    margin: auto;
+    height: 350px;
+  }
