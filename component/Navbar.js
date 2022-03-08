@@ -33,6 +33,9 @@ export default function Navbar() {
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Link</a>
                             </li>
+                            <li className="nav-item">
+                                <span className='nav-link'><Link href='/Create'  > Create</Link></span>
+                            </li>
                         </ul>
                         <Link href='/Login' className='active'><button className=" btn btn-success ">Login</button></Link>
                         <Link href='/Logout' className='active'><button className=" btn btn-danger ">Logout</button></Link>
