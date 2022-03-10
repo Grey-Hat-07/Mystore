@@ -1,15 +1,45 @@
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Send } from '../component/Icons';
+import baseUrl from '../helpers/baseUrl';
 const Create = () => {
+    const router= useRouter();
     const [name, setname] = useState('');
     const [price, setprice] = useState('');
     const [description, setdescription] = useState('');
-    const [image, setimage] = useState('');
-    const handlesubmit = (e) => {
+    const [imageUrl, setimage] = useState('');
+    const handlesubmit =async (e) => {
         e.preventDefault();
-        console.log(name, price, description, image);
-
+        const image = await imageUplaod();
+        const res=fetch(`${baseUrl}/api/products`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                },
+            body: JSON.stringify({ name, 
+                price, 
+                description, 
+                image
+             })
+        })
+        const res2 = res.then(res => res.json());
+        if(res2.error){
+            console.log(res2.error);
+        }
+        else
+            router.push('/');
+    }
+    const imageUplaod = async () => {
+        const data = new FormData();
+        data.append('file', imageUrl);
+        data.append('upload_preset', 'Mystore');
+        data.append('cloud_name', 'de5rfdbf8');
+        const res = await fetch('https://api.cloudinary.com/v1_1/de5rfdbf8/image/upload', {
+            method: 'POST',
+            body: data
+        });
+        const file = await res.json();
+        return file.url;
     }
     return (
         <>
@@ -28,7 +58,7 @@ const Create = () => {
                         <label for="floatingTextarea2">Comments</label>
                     </div>
                     <img src={
-                        image ? URL.createObjectURL(image) : ''
+                        imageUrl ? URL.createObjectURL(imageUrl) : ''
                     } className="rounded float-end" alt='Image preview' style={{width:'100px',height:'100px'}} />
                     <button type="submit" className="btn btn-success mt-2 mb-3">
                         Submit<Send />
