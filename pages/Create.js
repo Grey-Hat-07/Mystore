@@ -48,14 +48,14 @@ const Create = () => {
                     <input type="text" className="form-control" placeholder="Name" value={name} onChange={(e) => setname(e.target.value)} />
                     <input type="text" className="form-control mt-2" placeholder="Price" value={price} onChange={(e) => setprice(e.target.value)} />
                     <div className="mb-3">
-                        <label for="formFile" className="form-label">image file</label>
+                        <label htmlFor="formFile" className="form-label">image file</label>
                         <input className="form-control" type="file" id="formFile"
                             accept='image/*' onChange={(e) => setimage(e.target.files[0])} />
                     </div>
                     <div className="form-floating">
                         <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" 
                         style={{height:'100px'}} value={description} onChange={(e) => setdescription(e.target.value)}></textarea>
-                        <label for="floatingTextarea2">Comments</label>
+                        <label htmlFor="floatingTextarea2">Comments</label>
                     </div>
                     <img src={
                         imageUrl ? URL.createObjectURL(imageUrl) : ''
