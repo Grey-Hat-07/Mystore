@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
+import { parseCookies } from 'nookies'
 export default function Navbar() {
     return (
         <div>
