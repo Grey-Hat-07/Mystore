@@ -12,3 +12,8 @@
     margin: auto;
     height: 350px;
   }
+
+.cardwidth {
+    width: 70%;
+    margin: auto;
+}

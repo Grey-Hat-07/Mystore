@@ -38,7 +38,7 @@ export default function Navbar() {
                             </li>
                         </ul>
                         <Link href='/Login' className='active'><button className=" btn btn-success ">Login</button></Link>
-                        <Link href='/Logout' className='active'><button className=" btn btn-danger ">Logout</button></Link>
+                        <Link href='/Signup' className='active'><button className=" btn btn-danger ">Signup</button></Link>
                     </div>
                 </div>
             </nav>
