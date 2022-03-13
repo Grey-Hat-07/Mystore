@@ -1,8 +1,24 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
+import jsCookie from 'js-cookie'
 import { parseCookies } from 'nookies'
+import { useRouter } from 'next/router'
 export default function Navbar() {
+    const { user } = parseCookies()
+    const router = useRouter();
+    const [auth, setAuth] = useState(false);
+    useEffect(() => {
+
+        if (user) {setAuth(true);}
+
+        else setAuth(false);
+
+    }, [user])
+    function isActive(route){
+        return route === router.pathname ? "active nav-link" : "nav-link"
+    }
+
     return (
         <div>
             <Head>
@@ -16,7 +32,7 @@ export default function Navbar() {
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
                     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
                     crossOrigin="anonymous"></script>
-                <link rel="stylesheet" href='/Style.css'/>
+                <link rel="stylesheet" href='/Style.css' />
 
             </Head>
 
@@ -29,17 +45,25 @@ export default function Navbar() {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link" aria-current="page" href="#">Home</a>
+                            <span className={isActive("/")}><Link href='/' >Home</Link></span>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Link</a>
                             </li>
-                            <li className="nav-item">
-                                <span className='nav-link'><Link href='/Create'  > Create</Link></span>
-                            </li>
+                            {auth&&<li className="nav-item">
+                                <span className={isActive("/Create")}><Link href='/Create'  > Create</Link></span>
+                            </li>}
+                            {auth&&<li className="nav-item">
+                                <span className={isActive("/Account")}><Link href='/Account'  > Profile</Link></span>
+                            </li>}
                         </ul>
-                        <Link href='/Login' className='active'><button className=" btn btn-success ">Login</button></Link>
-                        <Link href='/Signup' className='active'><button className=" btn btn-danger ">Signup</button></Link>
+                        {   
+                            auth ? <Link href='/' className='active'><button className=" btn btn-danger" 
+                            onClick={()=>{jsCookie.remove('user'); router.push('/'); }}>logout</button></Link>
+                                : <Link href='/Login' className='active'><button className=" btn btn-success ">Login</button></Link>
+
+                        }
+
                     </div>
                 </div>
             </nav>

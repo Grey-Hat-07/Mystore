@@ -44,7 +44,7 @@ const GetModalStyle = ({product}) => {
             </button>
 
             {/* Modal */}
-            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -57,7 +57,7 @@ const GetModalStyle = ({product}) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-danger"
+                            <button type="button" className="btn btn-danger" data-bs-dismiss="modal"
                             onClick={() => {deleteproduct()}}
                             >Delete</button>
                         </div>

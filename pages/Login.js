@@ -9,7 +9,6 @@ export default function Login() {
   const router = useRouter()
   const handlesubmit = async(e) => {
     e.preventDefault()
-    console.log(email, password)
     const res = await fetch(`${baseUrl}/api/Login`, {
       method: 'POST',
       headers: {
@@ -22,8 +21,9 @@ export default function Login() {
       alert(res2.error)
     }
     else{
-      jsCookie.set('user', res2.token)
-      window.location.reload()
+      console.log(res2)
+      // jsCookie.set('token', res2.token)
+      jsCookie.set('user', res2.user._id)
       router.push('/')
     }
 

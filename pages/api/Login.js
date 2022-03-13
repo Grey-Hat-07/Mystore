@@ -16,10 +16,13 @@ export default async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
         return res.status(400).json({ error: "Incorrect password" });
-    }
+    }else{
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET,{
         expiresIn: "6h"
     });
-    res.status(200).json({ token });
+    const {name, email } = user
+    res.status(200).json({user})
+    }
+   
 
 }
