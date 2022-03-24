@@ -21,6 +21,7 @@ export default function Signup() {
       alert(res2.error)
     }
     else{
+      console.log(res2)
       router.push('/Login')            
     }
   }

@@ -48,7 +48,7 @@ export default function Navbar() {
                             <span className={isActive("/")}><Link href='/' >Home</Link></span>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Link</a>
+                            <span className={isActive("/Cart")}><Link href='/Cart' >Cart</Link></span>
                             </li>
                             {auth&&<li className="nav-item">
                                 <span className={isActive("/Create")}><Link href='/Create'  > Create</Link></span>

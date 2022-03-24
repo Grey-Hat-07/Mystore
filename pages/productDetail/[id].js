@@ -1,11 +1,31 @@
 import baseUrl from "../../helpers/baseUrl";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { Addtocart, Delete } from "../../component/Icons";
 const productDetails = (props) => {
     const { product } = props;
+    const[quantity, setQuantity] = useState(1);
     const router = useRouter();
     if (router.isFallback) {
         return <h1 className="text-primary">Loading...</h1>
+    }
+    const addToCart = async () => {
+    
+        const data = {
+            productId: product._id,
+            quantity: quantity
+        }
+        const res = await fetch(`${baseUrl}/api/cart`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        const json = await res.json()
+        router.push("/Cart")
+
+
     }
     return (
         <div className="row container">
@@ -19,8 +39,8 @@ const productDetails = (props) => {
                 <p>₹{product.price}</p>
                 <p>{product.description}</p>
                 <div className="input-group mb-3">
-                    <input type="number" className="form-control" min={1} />
-                    <button className="btn btn-warning" type="button" id="button-addon1">
+                    <input type="number" className="form-control" min={1} value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+                    <button className="btn btn-warning" type="button" id="button-addon1" onClick={addToCart}>
                         Addtocart<Addtocart /></button>
                 </div>
                 <GetModalStyle product={product} />

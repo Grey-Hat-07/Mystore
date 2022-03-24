@@ -20,9 +20,7 @@ export default async (req, res) => {
         email,
         password: hashedPassword,
     }).save();
-    await new Cart({
-        userId: newUser._id,
-    }).save();
+    const cart = await new Cart({ userId: newUser._id }).save();
 
     res.status(200).json(newUser);
 
