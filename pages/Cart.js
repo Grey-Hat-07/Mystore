@@ -1,18 +1,26 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import baseUrl from '../helpers/baseUrl';
+import { Cartproduct } from '../component/Cartproduct';
 export default function Cart() {
     const [data, setData] = useState({});
+    var total = 0;
     useEffect(async() => {
      const res = await fetch(`${baseUrl}/api/cart`);
       const data = await res.json();
       setData(data);
 
     })
-    console.log(data);
+   
     return (
-        <div>Cart
-            {data.userId}
+        <div>
+            {
+                data.products? data.products.map(product => (
+                    <Cartproduct key={product._id} product={product} total={total} />
+                )): <h2>Cart is empty</h2>
+            }
+            {total }
+
         </div>
     )
 }

@@ -26,6 +26,22 @@ export default async (req, res) => {
             else {
                 res.status(404).json({ message: "Cart not found" });
             }
+        case "DELETE":
+            const { productId: productId1 } = req.body;
+            const cart1 = await Cart.findOne({ userId: user });
+            if (cart1) {
+                const product = cart1.products.find(
+                    (product) => product.product === productId1
+                );
+                if (product) {
+                    cart1.products.splice(cart1.products.indexOf(product), 1);
+                    await cart1.save();
+                }
+                res.status(200).json(cart1);
+            }
+            else {
+                res.status(404).json({ message: "Cart not found" });
+            }
 
     }
 }

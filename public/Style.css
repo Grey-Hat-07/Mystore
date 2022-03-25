@@ -11,8 +11,15 @@
     width: 16rem;
     margin: auto;
     height: 350px;
-  }
-
+}
+.cartimage{
+    width: 150px;
+    height: 160px;
+    float: left;
+    margin-right: 10px;
+    
+    
+}
 .cardwidth {
     width: 70%;
     margin: auto;
