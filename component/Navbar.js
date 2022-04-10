@@ -5,16 +5,16 @@ import jsCookie from 'js-cookie'
 import { parseCookies } from 'nookies'
 import { useRouter } from 'next/router'
 export default function Navbar() {
-    const { user } = parseCookies()
+    const { token } = parseCookies()
     const router = useRouter();
     const [auth, setAuth] = useState(false);
     useEffect(() => {
 
-        if (user) {setAuth(true);}
+        if (token) {setAuth(true);}
 
         else setAuth(false);
 
-    }, [user])
+    }, [token])
     function isActive(route){
         return route === router.pathname ? "active nav-link" : "nav-link"
     }
@@ -59,7 +59,7 @@ export default function Navbar() {
                         </ul>
                         {   
                             auth ? <Link href='/' className='active'><button className=" btn btn-danger" 
-                            onClick={()=>{jsCookie.remove('user'); router.push('/'); }}>logout</button></Link>
+                            onClick={()=>{jsCookie.remove('token'); router.push('/'); }}>logout</button></Link>
                                 : <Link href='/Login' className='active'><button className=" btn btn-success ">Login</button></Link>
 
                         }

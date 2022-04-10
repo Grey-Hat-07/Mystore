@@ -23,7 +23,7 @@ export default function Login() {
     else{
       console.log(res2)
       // jsCookie.set('token', res2.token)
-      jsCookie.set('user', res2.user._id)
+      jsCookie.set('token', res2.token)
       router.push('/')
     }
 
