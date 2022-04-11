@@ -20,7 +20,6 @@ export default async (req, res) => {
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET,{
         expiresIn: "6h"
     });
-    const {name, email } = user
     res.status(200).json({user})
     }
    

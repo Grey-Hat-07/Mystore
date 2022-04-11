@@ -1,4 +1,6 @@
 import Cart from "../../Models/Cart";
+import initDB from "../../helpers/initDB";
+initDB();
 export default async (req, res) => {
     const { user } = req.cookies;
     switch (req.method) {

@@ -4,7 +4,7 @@ import baseUrl from '../helpers/baseUrl';
 import { Cartproduct } from '../component/Cartproduct';
 export default function Cart() {
     const [data, setData] = useState({});
-    var total = 0;
+    const [total,setTotal] = useState(0);
     useEffect(async() => {
      const res = await fetch(`${baseUrl}/api/cart`);
       const data = await res.json();
@@ -16,7 +16,7 @@ export default function Cart() {
         <div>
             {
                 data.products? data.products.map(product => (
-                    <Cartproduct key={product._id} product={product} total={total} />
+                    <Cartproduct key={product._id} product={product} total={total} setTotal={setTotal} />
                 )): <h2>Cart is empty</h2>
             }
             {total }
