@@ -9,8 +9,8 @@ export const Cartproduct = (props) => {
         const res = await fetch(`${baseUrl}/api/product/${id}`);
         const data = await res.json();
         setProductData(data);
-        await props.setTotal(props.total + productData.price*product.quantity)
     }, [id]);
+    
     return (
         <div>
             <div className="card">
@@ -25,6 +25,7 @@ export const Cartproduct = (props) => {
                         <p>{product.quantity}  x  {productData.price}</p>
                         <p>
                             total: {product.quantity * productData.price}
+                            {/* {props.total} */}
                         </p>
                     </blockquote>
                 </div>

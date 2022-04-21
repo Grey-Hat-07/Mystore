@@ -24,6 +24,7 @@ export default function Login() {
       console.log(res2)
       // jsCookie.set('token', res2.token)
       jsCookie.set('token', res2.token)
+      jsCookie.set('user', res2.user._id)
       router.push('/')
     }
 

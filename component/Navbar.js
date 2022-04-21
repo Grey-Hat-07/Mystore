@@ -59,7 +59,7 @@ export default function Navbar() {
                         </ul>
                         {   
                             auth ? <Link href='/' className='active'><button className=" btn btn-danger" 
-                            onClick={()=>{jsCookie.remove('token'); router.push('/'); }}>logout</button></Link>
+                            onClick={()=>{jsCookie.remove('token'); jsCookie.remove('user'); router.push('/'); }}>logout</button></Link>
                                 : <Link href='/Login' className='active'><button className=" btn btn-success ">Login</button></Link>
 
                         }
