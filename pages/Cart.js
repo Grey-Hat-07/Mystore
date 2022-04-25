@@ -12,22 +12,77 @@ export default function Cart() {
       setData(data);
       
     })
-    const handlecheckout = async (paymentInfo) => {
-        console.log(paymentInfo);
-        try{
-        const res = await fetch(`${baseUrl}/api/payment`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({paymentInfo})
+    const initializeRazorpay = () => {
+        return new Promise((resolve) => {
+          const script = document.createElement("script");
+          script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    
+          script.onload = () => {
+            resolve(true);
+          };
+          script.onerror = () => {
+            resolve(false);
+          };
+    
+          document.body.appendChild(script);
         });
-        const res2 = await res.json();
-        console.log(res2);}
-        catch(err){
-            console.log(err);
+      };
+      const makePayment = async () => {
+        const res = await initializeRazorpay();
+    
+        if (!res) {
+          alert("Razorpay SDK Failed to load");
+          return;
         }
-    }
+    
+        // Make API call to the serverless API
+        const data = await fetch(`${baseUrl}/api/Razorpay`, { 
+            method: "POST" 
+        }).then((t) =>
+          t.json()
+        );
+        console.log(data);
+        var options = {
+          key: process.env.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
+          name: "Mystore",
+          currency: data.currency,
+          amount: data.amount,
+          order_id: data.id,
+          description: "Thankyou for your test donation",
+          image: "https://pbs.twimg.com/profile_images/1267713887165485061/WUR4QXtd_400x400.jpg",
+          handler: function (response) {
+            // Validate payment at server - using webhooks is a better idea.
+            alert(response.razorpay_payment_id);
+            alert(response.razorpay_order_id);
+            alert(response.razorpay_signature);
+          },
+          prefill: {
+            name: "Manu Arora",
+            email: "manuarorawork@gmail.com",
+            contact: "9999999999",
+          },
+        };
+    
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
+      };
+    
+    // const handlecheckout = async (paymentInfo) => {
+    //     console.log(paymentInfo);
+    //     try{
+    //     const res = await fetch(`${baseUrl}/api/payment`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({paymentInfo})
+    //     });
+    //     const res2 = await res.json();
+    //     console.log(res2);}
+    //     catch(err){
+    //         console.log(err);
+    //     }
+    // }
         
        
    //console.log(total);
@@ -44,7 +99,11 @@ export default function Cart() {
             }
             
             {total}
-            <StripeCheckout
+            <button className='btn btn-success btn-outline-primary' onClick={makePayment}>
+                Purchase
+            </button>
+
+            {/* <StripeCheckout
                 name = "Mystore"
                 description = "Buy some stuff"
                 amount = {total*100}
@@ -59,7 +118,7 @@ export default function Cart() {
             <button className='btn btn-success'>
                 Checkout
             </button>
-            </StripeCheckout>
+            </StripeCheckout> */}
         </div>
     )
 }
