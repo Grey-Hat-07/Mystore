@@ -2,7 +2,7 @@ import baseUrl from "../../helpers/baseUrl";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Addtocart, Delete } from "../../component/Icons";
-const productDetails = (props) => {
+const ProductDetails = (props) => {
     const { product } = props;
     const[quantity, setQuantity] = useState(1);
     const router = useRouter();
@@ -102,4 +102,4 @@ export async function getServerSideProps({ params: { id } }) {
     }
 
 }
-export default productDetails;
+export default ProductDetails;
