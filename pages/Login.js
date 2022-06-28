@@ -4,8 +4,8 @@ import { useRouter } from 'next/router'
 import baseUrl from '../helpers/baseUrl'
 import jsCookie from 'js-cookie'
 export default function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
   const router = useRouter()
   const handlesubmit = async(e) => {
     e.preventDefault()
