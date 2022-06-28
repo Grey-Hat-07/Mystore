@@ -30,6 +30,7 @@ export default async function handler(req, res) {
 
     try {
       const response = await razorpay.orders.create(options);
+      
       res.status(200).json({
         id: response.id,
         currency: response.currency,

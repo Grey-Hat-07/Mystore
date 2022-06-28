@@ -37,7 +37,17 @@ export default function Home(props) {
     </div>
   )
 }
-export async function getStaticProps(context) {
+// export async function getStaticProps(context) {
+//   const res = await fetch(`${baseUrl}/api/products`)
+//   const data = await res.json()
+//   return {
+//     props: {
+//       products: data
+//     }
+//   }
+// }
+
+export async function getServerSideProps(context) {
   const res = await fetch(`${baseUrl}/api/products`)
   const data = await res.json()
   return {

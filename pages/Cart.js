@@ -2,16 +2,47 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import baseUrl from '../helpers/baseUrl';
 import { Cartproduct } from '../component/Cartproduct';
-import StripeCheckout from 'react-stripe-checkout';
+import { useRouter } from 'next/router';
+// import StripeCheckout from 'react-stripe-checkout';
 export default function Cart() {
     const [data, setData] = useState({});
+    const [userData, setUserData] = useState({});
+    const router = useRouter();
     let total=0;
+    //useEffect section
     useEffect(async() => {
      const res = await fetch(`${baseUrl}/api/cart`);
-      const data = await res.json();
-      setData(data);
+      const cartdata = await res.json();
+      setData(cartdata);
       
     })
+    useEffect(async() => {
+        const res = await fetch(`${baseUrl}/api/account`);
+        const usedata = await res.json();
+        setUserData(usedata);
+        console.log(usedata);
+    },[]);
+    //useEffect section end
+    const createOrder = async({paymentId, razorpayOrderId}) => {
+      const res = await fetch(`${baseUrl}/api/Order`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          products : data.products,
+          email : userData.email,
+          total : total,
+          paymentId ,
+          razorpayOrderId
+        })
+      });
+      const res2 = await res.json();
+      if(res2) {
+        router.push('/');
+      }
+    }
+    // razorpay section
     const initializeRazorpay = () => {
         return new Promise((resolve) => {
           const script = document.createElement("script");
@@ -52,21 +83,21 @@ export default function Cart() {
           image: "https://pbs.twimg.com/profile_images/1267713887165485061/WUR4QXtd_400x400.jpg",
           handler: function (response) {
             // Validate payment at server - using webhooks is a better idea.
+            createOrder({ paymentId: response.razorpay_payment_id, razorpayOrderId: response.razorpay_order_id });
             alert(response.razorpay_payment_id);
             alert(response.razorpay_order_id);
             alert(response.razorpay_signature);
           },
           prefill: {
-            name: "Manu Arora",
-            email: "manuarorawork@gmail.com",
-            contact: "9999999999",
+            name: userData.name,
+            email: userData.email
           },
         };
     
         const paymentObject = new window.Razorpay(options);
         paymentObject.open();
       };
-    
+    // razorpay section end
     // const handlecheckout = async (paymentInfo) => {
     //     console.log(paymentInfo);
     //     try{
