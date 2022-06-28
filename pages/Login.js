@@ -10,9 +10,9 @@ export default function Login() {
   const handlesubmit = async(e) => {
     e.preventDefault()
     const res = await fetch(`${baseUrl}/api/Login`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({ email, password })
     })
